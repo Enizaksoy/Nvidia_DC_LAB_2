@@ -1,0 +1,120 @@
+Leaf Switch config
+
+cumulus@leaf01:mgmt:~$ nv config show --show-cmds
+Error: nv: invalid option "--show-cmds"
+cumulus@leaf01:mgmt:~$ nv config show -o commands
+
+nv set bridge domain br_default type vlan-aware
+nv set bridge domain br_default vlan 10 vni 10
+nv set bridge domain br_default vlan 20 vni 20
+nv set bridge domain br_default vlan 30 vni 30
+nv set evpn enable on
+nv set interface bond1 bond member swp1
+nv set interface bond1 bond mlag id 1
+nv set interface bond1 bridge domain br_default access 10
+nv set interface bond1-3 bond lacp-bypass on
+nv set interface bond1-3 bond mlag enable on
+nv set interface bond1-3 bond mode lacp
+nv set interface bond1-3 bridge domain br_default stp admin-edge on
+nv set interface bond1-3 bridge domain br_default stp auto-edge on
+nv set interface bond1-3 bridge domain br_default stp bpdu-guard on
+nv set interface bond1-3 link mtu 9216
+nv set interface bond1-3 type bond
+nv set interface bond2 bond member swp2
+nv set interface bond2 bond mlag id 2
+nv set interface bond2 bridge domain br_default access 20
+nv set interface bond3 bond member swp3
+nv set interface bond3 bond mlag id 3
+nv set interface bond3 bridge domain br_default access 30
+nv set interface eth0 ip address 192.168.200.6/24
+nv set interface eth0 ip vrf mgmt
+nv set interface eth0 type eth
+nv set interface lo ip address 10.10.10.1/32
+nv set interface lo type loopback
+nv set interface peerlink bond member swp49-50
+nv set interface peerlink bridge domain br_default
+nv set interface peerlink type peerlink
+nv set interface peerlink.4094 base-interface peerlink
+nv set interface peerlink.4094 type sub
+nv set interface peerlink.4094 vlan 4094
+nv set interface swp51-54 link state up
+nv set interface swp51-54 type swp
+nv set mlag backup 10.10.10.2
+nv set mlag enable on
+nv set mlag init-delay 10
+nv set mlag mac-address 44:38:39:BE:EF:AA
+nv set mlag peer-ip linklocal
+nv set mlag priority 1000
+nv set nve vxlan arp-nd-suppress on
+nv set nve vxlan enable on
+nv set nve vxlan mlag shared-address 10.0.1.12
+nv set nve vxlan source address 10.10.10.1
+nv set router bgp enable on
+nv set router bgp graceful-restart mode helper-only
+nv set service dns mgmt server 1.1.1.1
+nv set service dns mgmt server 8.8.8.8
+nv set service ntp mgmt server 0.cumulusnetworks.pool.ntp.org iburst on
+nv set service ntp mgmt server 1.cumulusnetworks.pool.ntp.org iburst on
+nv set service ntp mgmt server 2.cumulusnetworks.pool.ntp.org iburst on
+nv set service ntp mgmt server 3.cumulusnetworks.pool.ntp.org iburst on
+nv set system aaa class nvapply action allow
+nv set system aaa class nvapply command-path / permission all
+nv set system aaa class nvshow action allow
+nv set system aaa class nvshow command-path / permission ro
+nv set system aaa class sudo action allow
+nv set system aaa class sudo command-path / permission all
+nv set system aaa role nvue-admin class nvapply
+nv set system aaa role nvue-monitor class nvshow
+nv set system aaa role system-admin class nvapply
+nv set system aaa role system-admin class sudo
+nv set system aaa user cumulus full-name cumulus
+nv set system aaa user cumulus hashed-password '*'
+nv set system aaa user cumulus role system-admin
+nv set system api state enabled
+nv set system config auto-save state enabled
+nv set system control-plane acl acl-default-dos inbound
+nv set system control-plane acl acl-default-whitelist inbound
+nv set system hostname leaf01
+nv set system message post-login '##################################################################################### 
+#                     You are successfully logged in to: leaf01                     # 
+#####################################################################################'
+nv set system message pre-login '##################################################################################### 
+#  Welcome to NVIDIA Cumulus VX (TM) 5.14.0                                            # 
+#  NVIDIA Cumulus VX (TM) is a community supported virtual appliance designed       # 
+#  for experiencing, testing and prototyping NVIDIA Cumulus'"'"' latest technology.     # 
+#  For any questions or technical support, visit our community site at:             # 
+#  https://www.nvidia.com/en-us/support                                             # 
+#####################################################################################'
+nv set system reboot mode cold
+nv set system snmp-server listening-address all vrf mgmt
+nv set system snmp-server listening-address all-v6 vrf mgmt
+nv set system snmp-server readonly-community '$nvsec$9cb7a999fcb470bcd67cf6b040983cbc' access any
+nv set system snmp-server state enabled
+nv set system ssh-server state enabled
+nv set system syslog server 192.168.200.1 vrf mgmt
+nv set system timezone Etc/UTC
+nv set vrf default router bgp address-family ipv4-unicast enable on
+nv set vrf default router bgp address-family ipv4-unicast redistribute connected enable on
+nv set vrf default router bgp address-family l2vpn-evpn enable on
+nv set vrf default router bgp autonomous-system 65101
+nv set vrf default router bgp enable on
+nv set vrf default router bgp neighbor peerlink.4094 peer-group underlay
+nv set vrf default router bgp neighbor peerlink.4094 type unnumbered
+nv set vrf default router bgp neighbor swp51 peer-group underlay
+nv set vrf default router bgp neighbor swp51 type unnumbered
+nv set vrf default router bgp neighbor swp52 peer-group underlay
+nv set vrf default router bgp neighbor swp52 type unnumbered
+nv set vrf default router bgp neighbor swp53 peer-group underlay
+nv set vrf default router bgp neighbor swp53 type unnumbered
+nv set vrf default router bgp neighbor swp54 peer-group underlay
+
+nv set vrf default router bgp neighbor swp54 type unnumbered
+nv set vrf default router bgp peer-group underlay address-family l2vpn-evpn enable on
+nv set vrf default router bgp peer-group underlay bfd detect-multiplier 3
+nv set vrf default router bgp peer-group underlay bfd enable on
+nv set vrf default router bgp peer-group underlay bfd min-rx-interval 300
+nv set vrf default router bgp peer-group underlay bfd min-tx-interval 300
+nv set vrf default router bgp peer-group underlay remote-as external
+nv set vrf default router bgp router-id 10.10.10.1
+nv set vrf mgmt router static 0.0.0.0/0 address-family ipv4-unicast
+nv set vrf mgmt router static 0.0.0.0/0 via 192.168.200.1 type ipv4-address
